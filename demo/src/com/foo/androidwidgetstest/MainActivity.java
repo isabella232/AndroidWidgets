@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
         
         @Override
         public String onTextUpdate(float x, float y) {
-            return String.format(Locale.getDefault(), "%.0f/%.0f, yeah!", x, y);
+            return String.format(Locale.getDefault(), "%.0f,%.0f", x, y);
         }
     };
     
@@ -32,11 +32,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         mMagView = (TouchMagView)findViewById(R.id.magnifier);
-        mMagView.addView(findViewById(R.id.img))
+        mMagView.addView(findViewById(R.id.main_layout))
             .setLoupeSize(200)
             .setZoom(2f)
             .setXYOffsets(0, -200)
             .setShowText(true)
+            .setShowCrosshair(true)
             .setListener(mMagListener)
             ;
     }
