@@ -29,6 +29,7 @@ public class TouchMagView extends View {
     
     public static interface Listener {
         void onTouchEvent(MotionEvent event);
+        String onTextUpdate(float x, float y);
     }
     
     private final ArrayList<View> mViews = new ArrayList<View>();
@@ -199,9 +200,14 @@ public class TouchMagView extends View {
                 canvas.drawCircle(x, y, mLoupeSize, mRimPaint);
                 
                 if(mShowText) {
-                    String text = String.format("%.0f,%.0f", mMagPoint.x, mMagPoint.y);
-                    float tw = mTextPaint.measureText(text);
-                    canvas.drawText(text, x - (tw / 2), y - (mLoupeSize / 4), mTextPaint);
+                    String text = (mListener != null)?
+                        mListener.onTextUpdate(mMagPoint.x, mMagPoint.y):
+                        String.format("%.0f,%.0f", mMagPoint.x, mMagPoint.y);
+                        
+                    if(text != null) {
+                        float tw = mTextPaint.measureText(text);
+                        canvas.drawText(text, x - (tw / 2), y - (mLoupeSize / 4), mTextPaint);
+                    }
                 }
                 
                 if(mCrosshair) {
@@ -281,7 +287,7 @@ public class TouchMagView extends View {
         p.setColor(TEXT_COLOR);
         p.setStrokeWidth(1f);
         p.setTextSize(26f);
-        p.setStyle(Paint.Style.STROKE);
+        p.setStyle(Paint.Style.FILL_AND_STROKE);
         p.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
         mTextPaint = p;
     }

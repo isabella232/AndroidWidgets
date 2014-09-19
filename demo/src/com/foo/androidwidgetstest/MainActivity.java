@@ -1,5 +1,7 @@
 package com.foo.androidwidgetstest;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -11,6 +13,19 @@ public class MainActivity extends Activity {
     
     private TouchMagView mMagView;
     
+    private final TouchMagView.Listener mMagListener = new TouchMagView.Listener() {
+        @Override
+        public void onTouchEvent(MotionEvent event) {
+            // Pass the event through to the relevant views.
+            findViewById(R.id.img).dispatchTouchEvent(event);
+        }
+        
+        @Override
+        public String onTextUpdate(float x, float y) {
+            return String.format(Locale.getDefault(), "%.0f/%.0f, yeah!", x, y);
+        }
+    };
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,13 +36,9 @@ public class MainActivity extends Activity {
             .setLoupeSize(200)
             .setZoom(2f)
             .setXYOffsets(0, -200)
-            .setListener(new TouchMagView.Listener() {
-                @Override
-                public void onTouchEvent(MotionEvent event) {
-                    // Pass the event through to the relevant views.
-                    findViewById(R.id.img).dispatchTouchEvent(event);
-                }
-            });
+            .setShowText(true)
+            .setListener(mMagListener)
+            ;
     }
 
     @Override
