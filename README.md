@@ -34,10 +34,16 @@ This view is intended to allow touch magnification of a view under it. To use it
 Then, in onCreate() of the Activity, do something like this:
 
         mMagView = (TouchMagView)findViewById(R.id.magnifier);
-        mMagView.addView(findViewById(R.id.img))
+        mMagView
+            // Add a view to magnify
+            .addView(findViewById(R.id.img))
+            // Set the size of the loupe (px)
             .setLoupeSize(200)
+            // Set the magnification
             .setZoom(2f)
+            // Display it 200px above the touch point (helps if you want to see it!)
             .setXYOffsets(0, -200)
+            // Pass touch events to the views under the magnifier
             .setListener(new TouchMagView.Listener() {
                 @Override
                 public void onTouchEvent(MotionEvent event) {
@@ -58,8 +64,10 @@ You can specify when to start and stop magnifying. For example:
     
 There are several options for controlling loupe size, magnification, various colors (rim, text, crosshair), whether or not to show a crosshair or text, etc.
 
-Project Structure
+More to come.
 
+Project Structure
+=================
 The library/ directory contains the Android library you'll (perhaps) use in your project. The demo/ directory contains an app that shows it in action.
 
 Have fun.
