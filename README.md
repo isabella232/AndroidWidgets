@@ -11,13 +11,17 @@ This is a library I hope to add to over time, a place to keep custom views that 
 
 TouchMagView
 ============
-This view is intended to allow touch magnification of a view under it. 
+TouchMagView is a magnifier view for Android apps. Typical usage is to place it at the top
+of the z-order in a RelativeLayout. By default, it does nothing, until you attach one or
+more other views to it, and call the startMagnifying() method. At that point a loupe
+of a size and magnification you specify appears where you're touching, and magnifies that
+area.
 
-Here's a couple of shots of it in action:
+Here's a picture of it in action:
 
 ![Screenshot] (resources/screenshot.png?raw=true "Magnifier")
 
-To use it, I usually put it at the top of the z-order in a RelativeLayout, like this:
+To use it, do something like this in a layout:
 
     <RelativeLayout
         android:layout_width="match_parent"
