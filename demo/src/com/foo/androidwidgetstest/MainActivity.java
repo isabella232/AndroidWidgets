@@ -2,7 +2,6 @@ package com.foo.androidwidgetstest;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MotionEvent;
 
 import com.fognl.android.widget.touchmag.TouchMagView;
@@ -12,14 +11,6 @@ public class MainActivity extends Activity {
     
     private TouchMagView mMagView;
     
-    private Handler mHandler = new Handler();
-    
-    private final Runnable mStartMagnifying = new Runnable() {
-        public void run() {
-            mMagView.startMagnifying();
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +33,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        
-        mHandler.postDelayed(mStartMagnifying, 1000);
+        mMagView.startMagnifying();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        
         mMagView.stopMagnifying();
     }
 }

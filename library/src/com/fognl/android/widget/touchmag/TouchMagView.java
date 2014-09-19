@@ -15,6 +15,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -49,6 +50,7 @@ public class TouchMagView extends View {
     
     private Listener mListener;
     private boolean mEnabled = true;
+    private boolean mPendingStart = false;
 
     public TouchMagView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -70,6 +72,16 @@ public class TouchMagView extends View {
         return this;
     }
     
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        
+        if(w > 0 && h > 0 && mPendingStart) {
+            startMagnifier();
+            mPendingStart = false;
+        }
+    }
+    
     public TouchMagView addView(View view) {
         mViews.add(view);
         return this;
@@ -86,20 +98,19 @@ public class TouchMagView extends View {
                 mMagBitmap.recycle();
             }
             catch(Throwable ex) {
-                ex.printStackTrace();
+                Log.e(TAG, ex.getMessage(), ex);
             }
         }
         
-        mMagBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(mMagBitmap);
+        int width = getWidth();
+        int height = getHeight();
         
-        for(View v: mViews) {
-            v.draw(canvas);
+        if(width == 0 || height == 0) {
+            mPendingStart = true;
         }
-        
-        mMagShader = new BitmapShader(mMagBitmap, TileMode.CLAMP, TileMode.CLAMP);
-        mMagPaint = new Paint();
-        mMagPaint.setShader(mMagShader);
+        else {
+            startMagnifier();
+        }
     }
     
     public void stopMagnifying() {
@@ -108,7 +119,7 @@ public class TouchMagView extends View {
                 mMagBitmap.recycle();
             }
             catch(Throwable ex) {
-                ex.printStackTrace();
+                Log.e(TAG, ex.getMessage(), ex);
             }
         }
   
@@ -273,5 +284,18 @@ public class TouchMagView extends View {
         p.setStyle(Paint.Style.STROKE);
         p.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
         mTextPaint = p;
+    }
+    
+    private void startMagnifier() {
+        mMagBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(mMagBitmap);
+        
+        for(View v: mViews) {
+            v.draw(canvas);
+        }
+        
+        mMagShader = new BitmapShader(mMagBitmap, TileMode.CLAMP, TileMode.CLAMP);
+        mMagPaint = new Paint();
+        mMagPaint.setShader(mMagShader);
     }
 }
