@@ -83,6 +83,11 @@ public class TouchMagView extends View {
         }
     }
     
+    /**
+     * Add a <code>View</code> to the list of views to magnify.
+     * The only time you would add multiple views is if there are multiple
+     * views in the z-order. Most of the time, you just add one.
+     */
     public TouchMagView addView(View view) {
         mViews.add(view);
         return this;
@@ -93,6 +98,9 @@ public class TouchMagView extends View {
         return this;
     }
     
+    /** Start magnifying. If the view hasn't been sized yet, this causes it to start 
+     * magnifying after sizing takes place.
+     */
     public void startMagnifying() {
         if(mMagBitmap != null) {
             try {
@@ -114,6 +122,7 @@ public class TouchMagView extends View {
         }
     }
     
+    /** Stops magnification, hence the name. :-) */
     public void stopMagnifying() {
         if(mMagBitmap != null) {
             try {
@@ -142,8 +151,8 @@ public class TouchMagView extends View {
     public boolean showsText() { return mShowText; }
     public TouchMagView setShowText(boolean b) { mShowText = b; return this; }
     
-    public boolean hasCrosshair() { return mCrosshair; }
-    public TouchMagView setCrosshair(boolean c) { mCrosshair = c; return this; }
+    public boolean showsCrosshair() { return mCrosshair; }
+    public TouchMagView setShowCrosshair(boolean c) { mCrosshair = c; return this; }
     
     public boolean echoesEvents() { return mEchoEvents; }
     public TouchMagView echoEvents(boolean b) { mEchoEvents = b; return this; }

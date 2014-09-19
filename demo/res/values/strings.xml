@@ -2,8 +2,11 @@
 <resources>
 
     <string name="app_name">AndroidWidgetsTest</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main">Magnifier demo</string>
     <string name="img_content_description">Picture of something cool</string>
+    
+    <string name="btn1">Button1</string>
+    <string name="btn2">Button2</string>
+    <string name="some_text">Some text</string>
 
 </resources>

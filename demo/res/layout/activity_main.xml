@@ -4,14 +4,23 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" 
     >
-    <ImageView
-        android:id="@+id/img"
+    <!-- The view we'll magnify -->
+    <LinearLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/img_content_description"
-        android:src="@drawable/aerial"
-        android:scaleType="fitXY"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <!-- Any number of controls could go here, not just an image -->
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/img_content_description"
+            android:src="@drawable/aerial"
+            android:scaleType="fitXY"
+            />
+    </LinearLayout>
     
     <com.fognl.android.widget.touchmag.TouchMagView
         android:id="@+id/magnifier"

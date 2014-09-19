@@ -11,7 +11,13 @@ This is a library I hope to add to over time, a place to keep custom views that 
 
 TouchMagView
 ============
-This view is intended to allow touch magnification of a view under it. To use it, I usually put it at the top of the z-order in a RelativeLayout, like this:
+This view is intended to allow touch magnification of a view under it. 
+
+Here's a couple of shots of it in action:
+
+![Screenshot] (resources/screenshot.png?raw=true "Magnifier")
+
+To use it, I usually put it at the top of the z-order in a RelativeLayout, like this:
 
     <RelativeLayout
         android:layout_width="match_parent"
